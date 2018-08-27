@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "Studants";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@((ViewBag.students.Count == 0) ? "No Students " : "Students List")</h2>
+<button id="add_student" class="btn btn-primary">add Student</button>
+@{
+    if (ViewBag.students.Count > 0)
+    {
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Birethday</th>
+                    <th>phone</th>
+                    <th>action</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int i = 0;
+                    foreach (var item in ViewBag.students)
+                    {
+                        i++;
+                        <tr>
+                            <th>@i</th>
+                            <td>@item.first_name</td>
+                            <td>@item.last_name</td>
+                            <td>@item.birthday.Date.ToString("yyyy-MM-dd")</td>
+                            <td>@item.phone</td>
+                            <td>
+                                <div class="btn-group">
+                                    <button data-id="@item.id" class="btn btn-success details">Details</button>
+                                </div>
+                            </td>
+
+                        </tr>
+
+                    }
+                }
+                <tr></tr>
+            </tbody>
+        </table>
+    }
+}
+<ul class="pager">
+    @if (ViewBag.page > 1)
+    {
+        <li>@Html.ActionLink("prev", "Studants", new { page = ViewBag.page - 1 })</li>
+    }
+    @if (ViewBag.page * 2 < ViewBag.count)
+    {
+        <li>@Html.ActionLink("next", "Studants", new { page = ViewBag.page + 1 })</li>
+    }
+</ul>
+@section scripts{
+    <script>
+        $("#add_student").click(function () { window.location = "/Home/Student"; });
+        $(".details").click(function () { window.location = "/Home/Student?student_id=" + $(this).data("id"); });
+    </script>
+}
+

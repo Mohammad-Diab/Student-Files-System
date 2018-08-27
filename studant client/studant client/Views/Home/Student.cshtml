@@ -1,0 +1,113 @@
+﻿
+@{
+    /**/
+
+    ViewBag.Title = "Student";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<style>
+    input, textarea {
+        max-width: 100%;
+    }
+
+    .form-row {
+        overflow: hidden;
+    }
+</style>
+
+<h2>
+    @ViewBag.std.first_name
+    @ViewBag.std.last_name
+</h2>
+
+<div class="form-row">
+    <div class="form-group col-md-6">
+        <label for="first_name">First Name</label>
+        <input type="text" class="form-control" value="@ViewBag.std.first_name" id="first_name" />
+    </div>
+    <div class="col-md-6 form-group">
+        <label for="last_name">Last Name</label>
+        <input type="text" class="form-control" value="@ViewBag.std.last_name" id="last_name" />
+    </div>
+</div>
+
+<div class="form-row">
+    <div class="col-md-6 form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" value="@ViewBag.std.email" id="email" />
+    </div>
+    <div class="col-md-6 form-group">
+        <label for="number">Number</label>
+        <input type="text" class="form-control" value="@ViewBag.std.number" id="number" />
+    </div>
+</div>
+
+<div class="form-row">
+    <div class="col-md-12 form-group">
+        <label for="address">Address</label>
+        <textarea class="form-control" id="address">@ViewBag.std.address</textarea>
+    </div>
+</div>
+
+<div class="form-row">
+    <div class="col-md-12 form-group">
+        <label for="bairthday">birthday</label>
+        <input type="date" class="form-control" value="@ViewBag.std.birthday_str" id="birthday" />
+    </div>
+</div>
+
+<div class="form-row">
+    <div class="col-md-12 form-group">
+        <label for="phone">Phone</label>
+        <input type="text" class="form-control" value="@ViewBag.std.phone" id="phone" />
+    </div>
+</div>
+<button id="update" data-id="@ViewBag.std.id" class="btn btn-success">Save new values</button>
+@if (ViewBag.std.id > 0)
+{
+    <button id="delete_student" data-id="@ViewBag.std.id" class="btn btn-danger">Delete student</button>
+}
+
+
+<h2>@((ViewBag.std.files_list.Count == 0)? "No Files" : "Files")</h2>
+<button id="add_file" data-id="@ViewBag.std.id" class="btn btn-primary">add file</button>
+@{
+    if (ViewBag.std.files_list.Count > 0)
+    {
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>title</th>
+                    <th>description</th>
+                    <th>action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int i = 0;
+                    foreach (var item in ViewBag.std.files_list)
+                    {
+                        i++;
+                        <tr>
+                            <th>@i</th>
+                            <td>@item.file_title</td>
+                            <td>@item.description</td>
+                            <td>
+                                <div class="btn-group">
+                                    <button data-id="@item.id" class="btn btn-success downlaod">Download</button>
+                                    <button data-id="@item.id" class="btn btn-danger delete">Delete</button>
+                                </div>
+                            </td>
+
+                        </tr>
+
+                    }
+                }
+                <tr></tr>
+            </tbody>
+        </table>
+    }
+}
+

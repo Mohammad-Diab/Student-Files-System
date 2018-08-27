@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewBag.Title = "AddFile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    * {
+        overflow: hidden;
+    }
+</style>
+@section scripts{
+    <script src="~/Scripts/site.js"></script>
+}
+
+<h2>Add File</h2>
+<h3>Student id = @ViewBag.id</h3>
+@*<form id="upload_file" class="form-group" method="post" enctype="multipart/form-data" action="upload">
+    <div class="form-group">
+        <label for="file_title">Title</label>
+        <input class="form-control" type="text" id="file_title" placeholder="File Title" />
+    </div>
+    <div class="form-group">
+        <label for="file_description">Description</label>
+        <textarea class="form-control" type="text" id="file_description" placeholder="File Description"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="file_itself">File</label>
+        <input class="form-control" type="file" id="file_itself" placeholder="File itself" />
+    </div>
+    <div>
+        <button class="form-control btn btn-success" type="submit" id="add_file">Add</button>
+    </div>
+</form>*@
+
+
+
+
+    @using (Html.BeginForm("upload", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+
+    <div>
+        @Html.Hidden("id", (object)ViewBag.id)
+        @Html.TextBox("title", "", new { placeholder = "File Title" }) <br />
+        @Html.TextBox("description", "", new { placeholder = "File Description" }) <br />
+        @Html.TextBox("file", "", new { type = "file" }) <br />
+        <input type="submit" value="Upload" />
+
+        @ViewBag.Message
+
+    </div>
+
+
+    }
+
+
